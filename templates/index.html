@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Color Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4" style="text-align:center; width:100%">
+            {% with messages = get_flashed_messages()%}
+            {%if messages %}
+            {% for message in messages %}
+                <p class="flash" style="margin:15px; color:red">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <form method="POST" action="{{url_for('main_page')}}" enctype='multipart/form-data'>
+                <label for="formFileLg" class="form-label" style="margin:15px;  font-size:1.5rem;">Get 10 most common colors from picture</label>
+                <input class="form-control form-control-lg" name='file' id="formFileLg" type="file" style="margin:15px; width:50%; margin-left:25%" multiple>
+                <input type="submit" class="btn btn-success" value="Upload" style="margin:15px">
+            </form>
+            {% if show == True%}
+            <img src="{{url_for('static', filename=file)}}" alt="{{file}}" width=50%>
+            {% endif %}
+        </div>
+        <div class="col-4 mt-4" style="text-align:center; width:50%">
+            {% for color in colors: %}
+            <div class="card" style="width: 100%;">
+                <div style="background-color:{{color}};height:40px">
+
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{color}}</li>
+                </ul>
+                </div>
+                {% endfor%}
+        </div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+
+</script>
+
+</body>
+</html>
